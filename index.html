@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Essential meta tag for responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMI Calculator</title>
+  <!-- Include Google Font Noto Sans for the webpage -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Calculation Method Toggle Container (Top Left) -->
+  <div class="calc-switch-container">
+    <label class="switch">
+      <input type="checkbox" id="calcSwitch" />
+      <span class="slider round"></span>
+    </label>
+    <span id="calcLabel">Reducing Balance Method</span>
+  </div>
+
+  <!-- Theme Toggle Switch Container (Top Right) -->
+  <div class="theme-switch-container">
+    <label class="switch">
+      <input type="checkbox" id="themeToggle" />
+      <span class="slider round"></span>
+    </label>
+  </div>
+
+  <div class="container">
+    <h1>EMI Calculator</h1>
+    <form id="emiForm">
+      <div class="input-group">
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" placeholder="Enter amount" value="0" required />
+      </div>
+      <div class="input-group">
+        <label for="interestRate">Annual Interest Rate (%):</label>
+        <input type="number" id="interestRate" step="0.01" placeholder="Enter rate" value="0" required />
+      </div>
+      <div class="input-group">
+        <label for="years">Tenure (Years):</label>
+        <input type="number" id="years" placeholder="Enter years" value="0" required />
+      </div>
+      <div class="input-group">
+        <label for="months">Additional Months:</label>
+        <input type="number" id="months" placeholder="Enter months (if any)" value="0" required />
+      </div>
+      <button type="button" onclick="calculateEMI()">Calculate EMI</button>
+    </form>
+
+    <div id="result">
+      <h2>EMI Details</h2>
+      <p><strong>Principal Amount:</strong> <span id="principalAmount">-</span></p>
+      <p><strong>Duration:</strong> <span id="durationDetail">-</span></p>
+      <p><strong>EMI:</strong> <span id="emiAmount">-</span></p>
+      <p><strong>Total Interest:</strong> <span id="totalInterest">-</span></p>
+      <p><strong>Total Amount Paid:</strong> <span id="totalAmount">-</span></p>
+      <!-- Chart container for visualizing loan breakdown -->
+      <div class="chart-container">
+        <canvas id="emiChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Download Report button, hidden by default -->
+    <button id="downloadBtn" style="display: none;" onclick="downloadPDF()">Download Report</button>
+  </div>
+
+  <!-- Include jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Include jsPDF AutoTable Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <!-- Include Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
