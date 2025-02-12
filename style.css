@@ -17,7 +17,7 @@ body {
 
 /* Calculation Method Toggle Container (Top Left) */
 .calc-switch-container {
-  position: fixed;
+  position: absolute;
   top: 10px;
   left: 10px;
   z-index: 1000;
@@ -31,7 +31,7 @@ body {
 
 /* Theme Toggle Container (Top Right) */
 .theme-switch-container {
-  position: fixed;
+  position: absolute;
   top: 10px;
   right: 10px;
   z-index: 1000;
