@@ -1,0 +1,8 @@
+# Site Configuration for GitHub Pages
+title: "EMI Calculator"                  # Site title for your EMI project
+description: "A Responsive EMI Calculator for Financial Planning"  # Short description for the EMI project
+author: "Bharath S"                      # Your name or author info
+
+# Base URL settings
+baseurl: ""                              # Leave empty for main GitHub Pages; use "/emicalculator" if hosted in a subdirectory.
+url: "https://a-newstart.github.io"      # Replace with your GitHub Pages URL
