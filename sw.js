@@ -1,4 +1,4 @@
-const CACHE_NAME = "site-cache-v3";
+const CACHE_NAME = "emi-calculator-v4"; // Change version when updating
 const urlsToCache = [
   "/",
   "/index.html",
@@ -6,7 +6,7 @@ const urlsToCache = [
   "/script.js",
   "/icon-192.png",
   "/icon-512.png",
-  "/offline.html"  // ✅ Make sure this exists
+  "/offline.html" // Ensure this file exists
 ];
 
 // Install Event - Cache Files
@@ -34,19 +34,8 @@ self.addEventListener("activate", (event) => {
 // Fetch Event - Serve Cached Files & Handle Offline
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // ✅ Network available → Cache the response
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      })
-      .catch(() => {
-        // ❌ Network failed → Return cached page or offline.html
-        return caches.match(event.request).then((cachedResponse) => {
-          return cachedResponse || caches.match("/offline.html");
-        });
-      })
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request).catch(() => caches.match("/offline.html"));
+    })
   );
 });
