@@ -5,8 +5,8 @@ const urlsToCache = [
   "/style.css",
   "/script.js",
   "/icon-192.png",
-  "/icon-512.png"
-  "/offline.html"
+  "/icon-512.png",
+  "/offline.html"  // ✅ Fixed missing comma
 ];
 
 // Install Event - Cache Files
@@ -39,21 +39,15 @@ self.addEventListener("fetch", (event) => {
     caches.match(event.request).then((response) => {
       return (
         response ||
-        fetch(event.request).then((fetchResponse) => {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, fetchResponse.clone());
-            return fetchResponse;
-          });
-        })
+        fetch(event.request)
+          .then((fetchResponse) => {
+            return caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, fetchResponse.clone());
+              return fetchResponse;
+            });
+          })
+          .catch(() => caches.match("/offline.html"))  // ✅ Show offline page if network fails
       );
-    })
-  );
-});
-
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).catch(() => caches.match("/offline.html"));
     })
   );
 });
