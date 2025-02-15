@@ -78,10 +78,24 @@
   <script src="script.js"></script>
   <script>
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js")
-                .then(() => console.log("Service Worker Registered"))
-                .catch((error) => console.log("Service Worker Registration Failed:", error));
+  navigator.serviceWorker.register("sw.js").then((registration) => {
+    console.log("Service Worker Registered");
+
+    // Force update if a new service worker is available
+    registration.addEventListener("updatefound", () => {
+      const newWorker = registration.installing;
+      newWorker.addEventListener("statechange", () => {
+        if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          console.log("New version available. Refreshing...");
+          location.reload(); // Reload page to update
         }
+      });
+    });
+  }).catch((error) => {
+    console.log("Service Worker Registration Failed:", error);
+  });
+  }
+    
   </script>
 </body>
 </html>
